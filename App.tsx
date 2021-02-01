@@ -1,21 +1,24 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
+import {Provider} from 'react-redux';
 import { StyleSheet, Text, View } from 'react-native';
+import {store} from "./src/Store/store";
+import {NavigationContainer} from "@react-navigation/native";
+import { createStackNavigator } from '@react-navigation/stack';
+import {ListOfAlbums} from "./src/Component/ListOfAlbums";
+import {AlbumDetail} from "./src/Component/AlbumDetail";
+
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Provider store={store}>
+      <NavigationContainer>
+          <Stack.Navigator initialRouteName='ListOfAlbums'>
+              <Stack.Screen name='ListOfAlbums' component={ListOfAlbums} />
+              <Stack.Screen name='AlbumDetail' component={AlbumDetail} />
+          </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
